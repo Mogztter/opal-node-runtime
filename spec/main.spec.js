@@ -28,6 +28,23 @@ describe('Opal Node Runtime', function () {
         expect(fundamentalObject.bind, `${fundamentalObject.name}.bind should be a Function`).to.be.an.instanceof(Function);
       }
     });
+
+    it('should preserve Fundamental objects toString', function() {
+      const fundamentalObjects = [
+        Function,
+        Boolean,
+        Error,
+        Number,
+        Date,
+        String,
+        RegExp,
+        Array
+      ];
+      for (let index in fundamentalObjects) {
+        const fundamentalObject = fundamentalObjects[index];
+        expect(fundamentalObject.toString()).to.equal(`function ${fundamentalObject.name}() { [native code] }`);
+      }
+    });
   });
 
   describe('When pathname module is loaded', function() {
